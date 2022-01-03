@@ -1,2 +1,2 @@
 # authentication-demo
-Authentication demo: Express, mongoDB, Mongoose, bcrypt
+Authentication demo without libraries: Express, mongoDB, Mongoose, bcrypt, ejs
