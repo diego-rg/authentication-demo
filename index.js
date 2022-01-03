@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const session = require("express-session");
 
 const User = require("./models/user");
 
@@ -18,7 +19,7 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 
 app.use(express.urlencoded({ extended: true }));//Para usar req.body (objeto cos datos da form)
-   
+app.use(session({ secret: "notaGoodSecret" }));   
 
 
 app.get("/", (req, res) => {
@@ -36,6 +37,7 @@ app.post("/register", async (req, res) => {
         password: hash
     })
     await user.save();
+    req.session.user_id = user._id;
     res.redirect("/");
 })
 
@@ -48,14 +50,23 @@ app.post("/login", async (req, res) => {
     const tryLogin = await bcrypt.compare(req.body.password, user.password);
     const testHashed = await bcrypt.hash(req.body.password, 12);
     if(tryLogin) {
-        res.send("Welcome back!")
+        req.session.user_id = user._id;
+        res.redirect("/secret");
     } else {
-        res.send("The submited data is not correct");
+        res.redirect("login");
     }
 })
 
+app.post("/logout", (req, res) => {
+    req.sessionuser._id = null;
+    res.redirect("/login");
+})
+
 app.get("/secret", (req, res) => {
-    res.send("Secret data!");
+    if (!req.session.user_id) {
+        res.redirect("/login");
+    }
+    res.send("Now you can read secret data only for registered users")
 })
 
 app.listen(3000, () => {
