@@ -58,15 +58,16 @@ app.post("/login", async (req, res) => {
 })
 
 app.post("/logout", (req, res) => {
-    req.sessionuser._id = null;
+    //req.session.user_id = null;//Valería neste caso con solo esta, xa que non hai máis que cerrar sesión
+    req.session.destroy();
     res.redirect("/login");
 })
 
 app.get("/secret", (req, res) => {
     if (!req.session.user_id) {
-        res.redirect("/login");
+        return res.redirect("/login");
     }
-    res.send("Now you can read secret data only for registered users")
+    res.render("secret");
 })
 
 app.listen(3000, () => {
