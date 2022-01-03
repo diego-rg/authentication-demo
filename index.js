@@ -4,6 +4,13 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 
+const requireLogin = (req, res, next) => {//Middleware para login
+    if (!req.session.user_id) {
+        return res.redirect("/login");
+    }
+    next();
+}
+
 const User = require("./models/user");
 
 mongoose.connect('mongodb://localhost:27017/authDemo', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -63,11 +70,15 @@ app.post("/logout", (req, res) => {
     res.redirect("/login");
 })
 
-app.get("/secret", (req, res) => {
-    if (!req.session.user_id) {
-        return res.redirect("/login");
-    }
+app.get("/secret", requireLogin, (req, res) => {
+    // if (!req.session.user_id) {
+    //     return res.redirect("/login");//Cambiamos por un middleware
+    // }
     res.render("secret");
+})
+
+app.get("/supersecret", requireLogin, (req, res) => {//O login redirixe a secret, pero despois de logeado podes ir a supersecret
+    res.send("Super secret!");
 })
 
 app.listen(3000, () => {
