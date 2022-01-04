@@ -1,16 +1,62 @@
 body {
+    font-family: Helvetica, sans-serif;
+    font-size: 1.2rem;
     margin: 0;
     display: flex;
-    justify-content: center;
     width: 100vw;
     height: 100vh;
     background: url(/images/technology-background.jpg) no-repeat;
 }
 
 main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: center;
     margin: auto;
     width: 50vh;
     height: 50vh;
-    border-radius: 5%;
-    background-color: white;
+    border-radius: 10%;
+    background-color: rgba(255, 255, 255, 0.274);
 }
+
+h1 {
+    margin: 0;
+}
+
+p {
+    text-align: justify;
+    padding: 0 1.5rem;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+button {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: none;
+    opacity: 0.8;
+}
+
+button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+img:hover {
+    transform: scale(1.1);
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+      font-size: 0.9rem;
+    }
+    main {
+        margin: auto, 5px, auto, 5px;
+        background-color: rgba(255, 255, 255, 0);
+    }
+  }
