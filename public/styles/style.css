@@ -3,6 +3,8 @@ body {
     font-size: 1.2rem;
     margin: 0;
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100vw;
     height: 100vh;
     background: url(/images/technology-background.jpg) no-repeat;
@@ -12,8 +14,8 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    align-items: space-between;
     text-align: center;
-    margin: auto;
     width: 50vh;
     height: 50vh;
     border-radius: 10%;
@@ -32,6 +34,17 @@ p {
 .button-container {
     display: flex;
     justify-content: space-evenly;
+}
+
+.input-container {
+    margin: 2rem 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 50%;
 }
 
 button {
