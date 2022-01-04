@@ -1,6 +1,8 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 const mongoose = require("mongoose");
+const ejsMate = require("ejs-mate");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 
@@ -22,15 +24,18 @@ mongoose.connect('mongodb://localhost:27017/authDemo', { useNewUrlParser: true, 
         console.log(err)
     })
 
+
+app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
-app.set("views", "views");
+app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: true }));//Para usar req.body (objeto cos datos da form)
 app.use(session({ secret: "notaGoodSecret" }));   
 
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
-    res.send("Home Page");
+    res.render("home");
 })
 
 app.get("/register", (req, res) => {
