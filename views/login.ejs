@@ -1,18 +1,23 @@
 <% layout("boilerplate") %>
 <h1>Log in</h1>
 <form action="/login" method="POST">
-    <div>
-        <label for="userame">Username:</label>
-        <input type="text" name="username" id="username" placeholder="Username">
+    <div class="form-container">
+        <div class="input-container">
+            <label for="userame">Username:</label>
+            <input type="text" name="username" id="username" placeholder="Username" required minlength="5" maxlength="15">
+        </div>
+        <div class="input-container">
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" placeholder="**********" required minlength="5" maxlength="15">
+        </div>
     </div>
-    <br>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" placeholder="**********">
-    </div>
-    <br>
-    <div>
-        <button type="submit">Login</button>
-        <button type="reset">Clear</button>
+    <div class="button-container">
+        <div class="button-container--individual">
+            <button type="submit">Login</button>
+        </div>
+        <div class="button-container--individual">
+            <button type="reset">Clear</button>
+        </div>
     </div>
 </form>
+<a href="/"><img src="/images/arrow.png" width="35 px" height="35" alt=""></a>
