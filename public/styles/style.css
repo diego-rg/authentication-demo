@@ -47,6 +47,13 @@ form {
     height: 50%;
 }
 
+.form-loggedIn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 15%;
+}
+
 button {
     padding: 0.5rem;
     font-size: 1rem;

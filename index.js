@@ -30,7 +30,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: true }));//Para usar req.body (objeto cos datos da form)
-app.use(session({ secret: "notaGoodSecret" }));   
+app.use(session({ secret: "notagoodsecret", resave: false, saveUninitialized: false }));  
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -59,11 +59,11 @@ app.get("/login", (req, res) => {
 
 app.post("/login", async (req, res) => {
     const user = await User.findOne({ username: req.body.username });
-    const tryLogin = await bcrypt.compare(req.body.password, user.password);
     const testHashed = await bcrypt.hash(req.body.password, 12);
+    const tryLogin = await bcrypt.compare(req.body.password, user.password);
     if(tryLogin) {
         req.session.user_id = user._id;
-        res.redirect("/secret");
+        res.redirect("/userArea");
     } else {
         res.redirect("login");
     }
@@ -75,14 +75,14 @@ app.post("/logout", (req, res) => {
     res.redirect("/login");
 })
 
-app.get("/secret", requireLogin, (req, res) => {
+app.get("/userArea", requireLogin, (req, res) => {
     // if (!req.session.user_id) {
     //     return res.redirect("/login");//Cambiamos por un middleware
     // }
-    res.render("secret");
+    res.render("userArea");
 })
 
-app.get("/supersecret", requireLogin, (req, res) => {//O login redirixe a secret, pero despois de logeado podes ir a supersecret
+app.get("/supersecret", requireLogin, (req, res) => {//O login redirixe a secret, pero despois de logeado podes ir a supersecret (ruta para comprobar login noutra páxina)
     res.send("Super secret!");
 })
 
