@@ -35,7 +35,11 @@ app.use(session({ secret: "notagoodsecret", resave: false, saveUninitialized: fa
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
-    res.render("home");
+    if(req.session.user_id) {
+        res.redirect("/userArea");
+    } else {
+       res.render("home"); 
+    }
 })
 
 app.get("/register", (req, res) => {
