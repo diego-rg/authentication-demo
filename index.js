@@ -86,8 +86,12 @@ app.get("/userArea", requireLogin, (req, res) => {
     res.render("userArea");
 })
 
-app.get("/supersecret", requireLogin, (req, res) => {//O login redirixe a secret, pero despois de logeado podes ir a supersecret (ruta para comprobar login noutra páxina)
-    res.send("Super secret!");
+app.get("/personalData", requireLogin, (req, res) => {//O login redirixe a secret, pero despois de logeado podes ir a supersecret (ruta para comprobar login noutra páxina)
+    if(!req.session.user_id) {
+        res.redirect("/login");
+    } else {
+    res.send("Your personal data");
+    }
 })
 
 app.listen(3000, () => {
